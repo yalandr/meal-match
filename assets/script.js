@@ -102,26 +102,40 @@ function createBoard() {
 
 createBoard();
 
+function removeActiveClass() {
+    document.querySelector('.message-popup').classList.remove('active')
+} 
+
+function showMessage(message) {
+    document.querySelector('.message-popup').classList.add('active');
+    document.querySelector('.message-text').innerText = message;
+    setTimeout(removeActiveClass, 2000);
+}
+
 function checkMatch() {
     const cardImages = document.querySelectorAll('.card-img');
     const optionOneId = cardsChosenIds[0];
     const optionTwoId = cardsChosenIds[1];
 
     if (optionOneId == optionTwoId) {
-        alert('You have clicked the same image!');
+        showMessage('You have clicked the same image!');
+        return false;
     }
 
     if (cardsChosen[0] == cardsChosen[1]) {
-        alert('You found a match!');
+        showMessage('Great! +1 Score');
         cardImages[optionOneId].setAttribute('src', 'assets/img/accept.png');
         cardImages[optionTwoId].setAttribute('src', 'assets/img/accept.png');
         cardImages[optionOneId].removeEventListener('click', flipCard);
         cardImages[optionTwoId].removeEventListener('click', flipCard);
         cardsWon.push(cardsChosen);
     } else {
-        cardImages[optionOneId].setAttribute('src', 'assets/img/question.png');
-        cardImages[optionTwoId].setAttribute('src', 'assets/img/question.png');
-        alert('Sorry');
+        function flipCardBack() {
+            cardImages[optionOneId].setAttribute('src', 'assets/img/question.png');
+            cardImages[optionTwoId].setAttribute('src', 'assets/img/question.png');
+        }
+        showMessage('Sorry, try next!');
+        setTimeout(flipCardBack, 2000);
     }
 
     resultDisplay.innerText = cardsWon.length;
@@ -130,7 +144,8 @@ function checkMatch() {
     cardsChosenIds = [];
 
     if (cardsWon.length == (cardArray.length / 2)) {
-        resultDisplay.innerText = 'The best! Tiger!';
+        resultDisplay.innerText = "Awesome! You have Won!";
+        showMessage('Awesome! You have Won!');
     }
 }
 

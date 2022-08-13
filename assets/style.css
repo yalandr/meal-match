@@ -25,7 +25,6 @@ body {
     text-align: center;
     margin-bottom: 1rem;
     color: #018FA3;
-    /* text-shadow: 0 1px 2px #111; */
     text-transform: uppercase;
 }
 .section-text {
@@ -43,7 +42,6 @@ body {
     letter-spacing: 1px;
     text-align: center;
     text-transform: uppercase;
-    /* text-shadow: 0 1px 2px #111; */
     color: #FF4D94
 }
 .cards-grid {
@@ -51,6 +49,7 @@ body {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: .5rem;
     margin: 1rem 0 2rem 0;
+    position: relative;
 }
 .card-img {
     width: 100%;
@@ -74,8 +73,99 @@ body {
     color: #fff;
     background-color: #955DEA;
     letter-spacing: 1px;
-    text-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
     display: block;
     margin: 0 auto;
 }
+.message-popup {
+    position: absolute;
+    top: 1rem;
+    left: 0;
+    z-index: -3;
+    opacity: 0;
+    width: 100%;
+    height: auto;
+    background-color: #4ECA30;
+    padding: 1rem;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    border-radius: 16px;
+    border: 4px solid #fff;
+}
+.message-text {
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 2px;
+}
+.message-popup.active {
+    -webkit-animation: 2s linear 0s popupShow;
+        -moz-animation: 2s linear 0s popupShow;
+            -o-animation: 2s linear 0s popupShow;
+            animation: 2s linear 0s popupShow;
+}
+    
+/* @-webkit-keyframes popupShow { 
+    0% { 
+        z-index: -3;
+        opacity: 0; 
+        top: 1rem;
+    } 10% { 
+        z-index: 5;
+        opacity: 1; 
+        top: -3rem;
+    } 100% {
+        z-index: -3;
+        opacity: 0;
+        top: -3rem;
+    } 
+}
+@-moz-keyframes popupShow {
+    0% { 
+        z-index: -3;
+        opacity: 0; 
+        top: 1rem;
+    } 10% { 
+        z-index: 5;
+        opacity: 1; 
+        top: -3rem;
+    } 100% {
+        z-index: -3;
+        opacity: 0;
+        top: -3rem;
+    } 
+}
+@-o-keyframes popupShow { 
+    0% { 
+        z-index: -3;
+        opacity: 0; 
+        top: 1rem;
+    } 10% { 
+        z-index: 5;
+        opacity: 1; 
+        top: -3rem;
+    } 100% {
+        z-index: -3;
+        opacity: 0;
+        top: -3rem;
+    } 
+} */
+@keyframes popupShow { 
+    0% { 
+        z-index: -3;
+        opacity: 0; 
+        top: 1rem;
+    } 15% { 
+        z-index: 5;
+        opacity: 1; 
+        top: -4.5rem;
+    } 90% {
+        z-index: 5;
+        opacity: 1; 
+        top: -4.5rem;
+    } 100% {
+        z-index: -3;
+        opacity: 0;
+        top: -4.5rem;
+    }  
+}
+                            
