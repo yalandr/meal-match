@@ -83,6 +83,8 @@ const cardArray = [
 
 cardArray.sort(() => 0.5 - Math.random());
 
+document.querySelector('#items-qty').innerText = cardArray.length / 2;
+
 const gridDisplay = document.querySelector('#grid');
 const resultDisplay = document.querySelector('#result');
 let cardsChosen = [];
@@ -117,12 +119,7 @@ function checkMatch() {
     const optionOneId = cardsChosenIds[0];
     const optionTwoId = cardsChosenIds[1];
 
-    if (optionOneId == optionTwoId) {
-        showMessage('You have clicked the same image!');
-        return false;
-    }
-
-    if (cardsChosen[0] == cardsChosen[1]) {
+    if (cardsChosen[0] == cardsChosen[1] && optionOneId !== optionTwoId) {
         showMessage('Great! +1 Score');
         cardImages[optionOneId].setAttribute('src', 'assets/img/accept.png');
         cardImages[optionTwoId].setAttribute('src', 'assets/img/accept.png');
@@ -146,6 +143,11 @@ function checkMatch() {
     if (cardsWon.length == (cardArray.length / 2)) {
         resultDisplay.innerText = "Awesome! You have Won!";
         showMessage('Awesome! You have Won!');
+    }
+
+    if (optionOneId == optionTwoId) {
+        showMessage('You have clicked the same image!');
+        cardsChosen = [];
     }
 }
 
