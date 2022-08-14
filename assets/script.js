@@ -110,7 +110,7 @@ function removeActiveClass() {
 
 function showMessage(message) {
     document.querySelector('.message-popup').classList.add('active');
-    document.querySelector('.message-text').innerText = message;
+    document.querySelector('.message-text').innerHTML = message;
     setTimeout(removeActiveClass, 2000);
 }
 
@@ -120,7 +120,7 @@ function checkMatch() {
     const optionTwoId = cardsChosenIds[1];
 
     if (cardsChosen[0] == cardsChosen[1] && optionOneId !== optionTwoId) {
-        showMessage('Great! +1 Score');
+        showMessage('Great! +1 Score 😎');
         cardImages[optionOneId].setAttribute('src', 'assets/img/accept.png');
         cardImages[optionTwoId].setAttribute('src', 'assets/img/accept.png');
         cardImages[optionOneId].removeEventListener('click', flipCard);
@@ -131,7 +131,7 @@ function checkMatch() {
             cardImages[optionOneId].setAttribute('src', 'assets/img/question.png');
             cardImages[optionTwoId].setAttribute('src', 'assets/img/question.png');
         }
-        showMessage('Sorry, try next!');
+        showMessage('Sorry, try next! 😉');
         setTimeout(flipCardBack, 2000);
     }
 
@@ -141,12 +141,11 @@ function checkMatch() {
     cardsChosenIds = [];
 
     if (cardsWon.length == (cardArray.length / 2)) {
-        resultDisplay.innerText = "Awesome! You have Won!";
-        showMessage('Awesome! You have Won!');
+        showMessage('🤩🤩🤩 <br> Awesome! You have Won! <br> 🤩🤩🤩');
     }
 
     if (optionOneId == optionTwoId) {
-        showMessage('You have clicked the same image!');
+        showMessage('You have clicked the same image! 🙂');
         cardsChosen = [];
     }
 }
