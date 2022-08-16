@@ -31,14 +31,14 @@ const cardArray = [
         name: 'pizza',
         img: 'assets/img/pizza.png',
     },
-    // {
-    //     name: 'soda',
-    //     img: 'assets/img/soda.png',
-    // },
-    // {
-    //     name: 'taco',
-    //     img: 'assets/img/taco.png',
-    // },
+    {
+        name: 'soda',
+        img: 'assets/img/soda.png',
+    },
+    {
+        name: 'taco',
+        img: 'assets/img/taco.png',
+    },
     {
         name: 'burger',
         img: 'assets/img/burger.png',
@@ -71,14 +71,14 @@ const cardArray = [
         name: 'pizza',
         img: 'assets/img/pizza.png',
     },
-    // {
-    //     name: 'soda',
-    //     img: 'assets/img/soda.png',
-    // },
-    // {
-    //     name: 'taco',
-    //     img: 'assets/img/taco.png',
-    // }
+    {
+        name: 'soda',
+        img: 'assets/img/soda.png',
+    },
+    {
+        name: 'taco',
+        img: 'assets/img/taco.png',
+    }
 ]
 
 cardArray.sort(() => 0.5 - Math.random());
@@ -90,7 +90,9 @@ const resultDisplay = document.querySelector('#result');
 let cardsChosen = [];
 let cardsChosenIds = [];
 const cardsWon = [];
+let stepsCount = 0;
 
+// BOARD CREATING
 function createBoard() {
     for (let i = 0; i < cardArray.length; i++) {
         const card = document.createElement('img');
@@ -104,6 +106,7 @@ function createBoard() {
 
 createBoard();
 
+// POPUP MESSAGE
 function removeActiveClass() {
     document.querySelector('.message-popup').classList.remove('active')
 } 
@@ -112,20 +115,48 @@ function showMessage(message) {
     document.querySelector('.message-popup').classList.add('active');
     document.querySelector('.message-text').innerHTML = message;
     setTimeout(removeActiveClass, 2000);
+    stepsCount++;
 }
 
+// NEW SET BUTTON
+const newSetBtn = document.querySelectorAll('.new-set');
+
+newSetBtn.forEach((e) => {
+    e.addEventListener('click', () => {
+        document.location.reload();
+    })
+})
+
+
+// MODAL
+const winnerModal = document.querySelector('.winner-modal');
+const winnerModalContent = document.querySelector('.winner-modal-content');
+
+function showModal(modal) {
+    modal.classList.add('active');
+}
+
+function closeModal(modal) {
+    modal.classList.remove('active');
+}
+
+winnerModalContent.addEventListener('click', (event) => {
+    event.stopPropagation();
+})
+
+// MATCH CHECKING
 function checkMatch() {
     const cardImages = document.querySelectorAll('.card-img');
     const optionOneId = cardsChosenIds[0];
     const optionTwoId = cardsChosenIds[1];
 
     if (cardsChosen[0] == cardsChosen[1] && optionOneId !== optionTwoId) {
-        showMessage('Great! +1 Score 😎');
         cardImages[optionOneId].setAttribute('src', 'assets/img/accept.png');
         cardImages[optionTwoId].setAttribute('src', 'assets/img/accept.png');
         cardImages[optionOneId].removeEventListener('click', flipCard);
         cardImages[optionTwoId].removeEventListener('click', flipCard);
         cardsWon.push(cardsChosen);
+        showMessage('Great! +1 Score 😎');
     } else {
         function flipCardBack() {
             cardImages[optionOneId].setAttribute('src', 'assets/img/question.png');
@@ -141,15 +172,18 @@ function checkMatch() {
     cardsChosenIds = [];
 
     if (cardsWon.length == (cardArray.length / 2)) {
-        showMessage('🤩🤩🤩 <br> Awesome! You have Won! <br> 🤩🤩🤩');
+        document.querySelector('#stepsCount').innerText = stepsCount;
+        showModal(winnerModal);
     }
 
     if (optionOneId == optionTwoId) {
         showMessage('You have clicked the same image! 🙂');
         cardsChosen = [];
+        stepsCount--;
     }
 }
 
+// CARDS FLIP
 function flipCard() {
     const cardId = this.getAttribute('data-id');
     cardsChosen.push(cardArray[cardId].name);
@@ -160,7 +194,3 @@ function flipCard() {
     }
 }
 
-
-document.querySelector('.btn').addEventListener('click', () => {
-    document.location.reload()
-})
